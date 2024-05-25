@@ -1,14 +1,30 @@
 extends CharacterBody2D
 
-@export var speed = 100
-@export var accel = 10
+@export var speed = 200
+@export var accel = 15
 
+@onready var animation_player = $AnimationPlayer
 @onready var state_machine: Node = get_node("FiniteStateMachine")
+@onready var collision_shape_2d = $CollisionShape2D
 
+# TODO:  Game Concept: Size Matters TODO
+# Overview 
+# "Size Matters" is a physics-based puzzle-platformer where players manipulate the size of their character  
+# and objects to navigate through challenging environments. The core mechanic revolves around resizing  
+# to solve puzzles, overcome obstacles, and explore different paths within the levels. 
 
-#@export var hp: int = 2: set = set_hp
-signal hp_changed(new_hp)
+# TODO:  Energy System: TODO
+#
+#Resizing consumes energy, which is replenished by collecting energy orbs scattered throughout the levels.
+#Strategic resizing is essential, as running out of energy leaves the player unable to change size until more
+#is found.
 
+# TODO:  Environmental Interaction: TODO
+#
+#Certain objects react differently based on size. For example, a small character can walk on fragile surfaces
+#without breaking them, while a larger character can break through barriers.
+#Water behaves differently with size, allowing large characters to float and small ones to sink, adding a 
+#layer of strategy to water-based puzzles.
 
 func _physics_process(_delta: float) -> void:
 			var direction: Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -17,34 +33,27 @@ func _physics_process(_delta: float) -> void:
 			
 			velocity.y = move_toward(velocity.y, speed * direction.y, accel)
 			
-			if velocity.x > 0 and anim_sprite.flip_h:
-				anim_sprite.flip_h = false
-			elif velocity.x < 0 and not anim_sprite.flip_h:
-				anim_sprite.flip_h = true
+			#if velocity.x > 0 and animation_player.flip_h:
+				#animation_player.flip_h = false
+			#elif velocity.x < 0 and not animation_player.flip_h:
+				#animation_player.flip_h = true
 			move_and_slide()
+			_shrink_grow()
 			
-func take_damage(dam: int, dir: Vector2, force: int) -> void:
-	if state_machine.state != state_machine.states.hurt and state_machine.state != state_machine.states.dead:
-		self.hp -= dam #subtracte hp based on damage
-		#frameFreeze(0.1, 0.4) #free frame (time scale, duration)
-		
-		#player damaged here
-		#if hp > 0:
-			#state_machine.set_state(state_machine.states.hurt)
-			#velocity += dir * force
-			##print("player hit")
-		#else:
-			#state_machine.set_state(state_machine.states.dead)
-			#audio_stream_player_2d_dead.play()
-			#velocity += dir * force * 2
-			
+func _shrink_grow():
 
-#func frameFreeze(timeScale, duration): #call when you want to freeze "time"
-	#Engine.time_scale = timeScale
-	#await(get_tree().create_timer(duration * timeScale).timeout)
-	#Engine.time_scale = 1.0
-	
-#called every time we modify the value of the hp variable
-#func set_hp(new_hp: int) -> void:
-	#hp = new_hp
-	#emit_signal("hp_changed", new_hp)
+# TODO: Resizing Mechanic: TODO
+#
+#Players can change their character's size at will, shrinking to fit through tight spaces or growing to
+#reach high platforms.
+#Objects in the environment can also be resized, such as shrinking a boulder to move it or enlarging a 
+#key to unlock a massive door.
+
+	if Input.is_action_just_pressed("shrink_grow"): #player presses space to grow or shrink
+		if scale.x == 1:
+			scale.x = 2
+			scale.y = 2
+		else:
+			scale.x = 1
+			scale.y = 1
+

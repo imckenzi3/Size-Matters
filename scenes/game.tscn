@@ -1,6 +1,10 @@
-[gd_scene format=3 uid="uid://r7at20vtpmjr"]
+[gd_scene load_steps=2 format=3 uid="uid://r7at20vtpmjr"]
+
+[ext_resource type="PackedScene" uid="uid://durbyypn4yna0" path="res://scenes/player.tscn" id="1_jpam5"]
 
 [node name="Game" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
 format = 2
+
+[node name="Player" parent="." instance=ExtResource("1_jpam5")]
