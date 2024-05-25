@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://durbyypn4yna0"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_mpxgp"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_j5eeo"]
+size = Vector2(20, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a35cq"]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_mpxgp")
+speed = null
+accel = null
+
+[node name="FiniteStateMachine" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_j5eeo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_a35cq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
