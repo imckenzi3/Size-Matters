@@ -26,6 +26,13 @@ extends CharacterBody2D
 #Water behaves differently with size, allowing large characters to float and small ones to sink, adding a 
 #layer of strategy to water-based puzzles.
 
+# TODO:  Sound: TODO
+#
+#An adaptive soundtrack that changes with the player’s size, becoming more intense or subtle depending
+#on whether the character is large or small.
+#Sound effects that highlight the resizing process, such as a stretching noise for growing and a
+#compressing sound for shrinking.
+
 func _physics_process(_delta: float) -> void:
 			var direction: Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 			
