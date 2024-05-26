@@ -1,29 +1,61 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7iqvdjd421vv"]
+[gd_scene load_steps=12 format=3 uid="uid://c7iqvdjd421vv"]
+
+[ext_resource type="Script" path="res://scripts/FiniteStateMachine.gd" id="1_82uo7"]
+[ext_resource type="Script" path="res://scenes/cat_boss.gd" id="1_jfckd"]
+[ext_resource type="Script" path="res://scripts/State.gd" id="2_a0err"]
+[ext_resource type="Script" path="res://scenes/Idle.gd" id="2_lymr4"]
+[ext_resource type="Script" path="res://scenes/Follow.gd" id="3_n2gcy"]
+[ext_resource type="Script" path="res://scenes/Death.gd" id="6_0rnkj"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tap1n"]
 size = Vector2(25, 25)
 
+[sub_resource type="Animation" id="Animation_ql2yu"]
+resource_name = "Idle"
+length = 0.4
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dciq2"]
+_data = {
+"Idle": SubResource("Animation_ql2yu")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jyuqk"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_i7b1q"]
+radius = 103.005
 
 [node name="CatBoss" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_jfckd")
 
 [node name="FiniteStateMachine" type="Node2D" parent="."]
+script = ExtResource("1_82uo7")
 
 [node name="Idle" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("2_lymr4")
 
 [node name="Follow" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("3_n2gcy")
 
 [node name="MeleeAttack" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("2_a0err")
 
 [node name="RangedAttack" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("2_a0err")
 
 [node name="Scream" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("2_a0err")
 
 [node name="ArmorBuff" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("2_a0err")
 
 [node name="Dash" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("2_a0err")
 
 [node name="Death" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("6_0rnkj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.635294, 0, 0.192157, 1)
@@ -34,6 +66,10 @@ texture = SubResource("PlaceholderTexture2D_tap1n")
 [node name="Sprite2D" type="Sprite2D" parent="Pivot"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dciq2")
+}
+autoplay = "Idle"
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -61,6 +97,22 @@ offset_bottom = 2.0
 theme_override_font_sizes/font_size = 24
 text = "Cat Boss"
 
+[node name="Label" type="Label" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Boss Slain"
+
 [node name="debug" type="Label" parent="."]
 offset_left = -23.0
 offset_top = -35.0
@@ -69,8 +121,11 @@ offset_bottom = -12.0
 text = "debug"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_jyuqk")
 
 [node name="PlayerDetection" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
 shape = SubResource("CircleShape2D_i7b1q")
+
+[connection signal="body_entered" from="PlayerDetection" to="FiniteStateMachine/Idle" method="_on_player_detection_body_entered"]
