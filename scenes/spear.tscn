@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bv470y8wxm73d"]
+
+[ext_resource type="Texture2D" uid="uid://cbk4ehj64cggh" path="res://assets/sprite sheet/boss/spear.png" id="1_gfod5"]
+[ext_resource type="Script" path="res://scripts/spear.gd" id="1_kt175"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chds6"]
+size = Vector2(3.7165, 62.093)
+
+[node name="spear" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_kt175")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.375673, -2.11049)
+rotation = -1.39626
+shape = SubResource("RectangleShape2D_chds6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.74533
+texture = ExtResource("1_gfod5")

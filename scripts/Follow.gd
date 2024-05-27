@@ -19,5 +19,5 @@ func transition():
 		match chance:
 			0:
 				get_parent().change_state("RangedAttack")
-			1:
-				get_parent().change_state("LaserBeam")
+			#1:
+				#get_parent().change_state("LaserBeam")

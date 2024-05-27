@@ -39,8 +39,8 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 		states.dead:
 			animation_player.play("dead")
 			
-			#await animation_player.animation_finished
-			get_tree().change_scene_to_file("res://scenes/you_died.tscn")
+			await animation_player.animation_finished
+			#get_tree().change_scene_to_file("res://scenes/you_died.tscn")
 			
 		states.eat:
 			animation_player.play("eat")

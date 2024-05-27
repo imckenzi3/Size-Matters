@@ -6,9 +6,18 @@ extends CharacterBody2D
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D as AnimatedSprite2D
 @onready var state_machine: Node = get_node("FiniteStateMachine")
 @onready var collision_shape_2d = $CollisionShape2D
+@onready var player = $"."
 
-# TODO:  Player Collision with boss TODO
-# TODO:  Player Collision with boss attacks TODO
+@export var hp: int = 4: set = set_hp
+@export var stam: int = 4: set = set_stam
+signal hp_changed(new_hp)
+signal stam_changed(new_stam)
+
+
+
+# TODO:  Player Collision with boss melee_attack TODO
+# TODO:  Player Collision with boss ranged_attack TODO
+# TODO:  Player eat boss damage TODO
 # TODO:  Player move sound TODO
 # TODO:  Player eat sound TODO
 # TODO:  Player hit sound TODO
@@ -57,6 +66,14 @@ func _physics_process(_delta: float) -> void:
 			move_and_slide()
 			_shrink_grow()
 			
+
+func eat():
+	anim_sprite.play("eat")
+ 
+func _input(event):
+	if event.is_action("eat"):
+		eat()
+
 func _shrink_grow():
 
 # TODO: Resizing Mechanic: TODO
@@ -73,4 +90,39 @@ func _shrink_grow():
 		else:
 			scale.x = 1
 			scale.y = 1
+
+func take_damage(dam: int, dir: Vector2, force: int) -> void:
+	if state_machine.state != state_machine.states.hurt and state_machine.state != state_machine.states.dead:
+		#audio_stream_player_2d_hurt.play()						#audio goes here
+		self.hp -= dam #subtracte hp based on damage
+		frameFreeze(0.1, 0.4) #free frame (time scale, duration)
+		
+		#player damaged here
+		if hp > 0:
+			state_machine.set_state(state_machine.states.hurt)
+			velocity += dir * force
+			#print("player hit")
+		else:
+			state_machine.set_state(state_machine.states.dead)
+			#audio_stream_player_2d_dead.play()					#audio goes here
+			velocity += dir * force * 2
+			
+
+func frameFreeze(timeScale, duration): #call when you want to freeze "time"
+	Engine.time_scale = timeScale
+	await(get_tree().create_timer(duration * timeScale).timeout)
+	Engine.time_scale = 1.0
+	
+#called every time we modify the value of the hp variable
+func set_hp(new_hp: int) -> void:
+	hp = new_hp
+	emit_signal("hp_changed", new_hp)
+	
+	#called every time we modify the value of the hp variable
+func set_stam(new_stam: int) -> void:
+	stam = new_stam
+	emit_signal("stam_changed", new_stam)
+	
+
+
 

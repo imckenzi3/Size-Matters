@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://durbyypn4yna0"]
+[gd_scene load_steps=46 format=3 uid="uid://durbyypn4yna0"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_mpxgp"]
 [ext_resource type="Texture2D" uid="uid://2uk1bic3p8g0" path="res://assets/sprite sheet/player/MouseIdle.png" id="2_65g7o"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://yi4b6870ivb8" path="res://assets/sprite sheet/player/MouseEat.png" id="3_h2ch0"]
 [ext_resource type="Texture2D" uid="uid://dtqmknglnujhc" path="res://assets/sprite sheet/player/MouseRun.png" id="3_kdo75"]
 [ext_resource type="Texture2D" uid="uid://l6cogu35bp50" path="res://assets/sprite sheet/player/MouseDamage.png" id="4_2qhog"]
+[ext_resource type="Script" path="res://scenes/playerBite.gd" id="8_eq04v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4y6w8"]
 size = Vector2(16, 9)
@@ -37,10 +38,130 @@ tracks/1/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("playerBite/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_42mik"]
+resource_name = "dead"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"death"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_48v50"]
+resource_name = "eat"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"eat"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("playerBite/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_b7thv"]
+resource_name = "hurt"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"hit"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
 
 [sub_resource type="Animation" id="Animation_474wl"]
 resource_name = "idle"
-length = 0.5
+length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -69,7 +190,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_so8xk"]
 resource_name = "move"
-length = 0.5
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -98,6 +219,9 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pfe36"]
 _data = {
 "RESET": SubResource("Animation_mj7x5"),
+"dead": SubResource("Animation_42mik"),
+"eat": SubResource("Animation_48v50"),
+"hurt": SubResource("Animation_b7thv"),
 "idle": SubResource("Animation_474wl"),
 "move": SubResource("Animation_so8xk")
 }
@@ -319,7 +443,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_4y55l"]
+radius = 4.0
+
+[node name="player" type="CharacterBody2D"]
 script = ExtResource("1_mpxgp")
 
 [node name="FiniteStateMachine" type="Node2D" parent="."]
@@ -339,3 +466,14 @@ autoplay = "idle"
 sprite_frames = SubResource("SpriteFrames_1kx37")
 animation = &"idle"
 autoplay = "idle"
+
+[node name="playerBite" type="Area2D" parent="."]
+collision_layer = 4
+script = ExtResource("8_eq04v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerBite"]
+position = Vector2(12, -1)
+shape = SubResource("CircleShape2D_4y55l")
+disabled = true
+
+[connection signal="body_entered" from="playerBite" to="playerBite" method="_on_body_entered"]

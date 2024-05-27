@@ -13,10 +13,6 @@ func transition():
 	if player_entered:
 		get_parent().change_state("Follow")
  
-
-func _on_player_detection_body_entered(body):
+func _on_player_detection_body_entered(_body):
 	player_entered = true
 
-
-func _on_player_detection_body_exited(body):
-	player_entered = false
