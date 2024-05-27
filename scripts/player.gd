@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-@export var speed = 200
-@export var accel = 15
+@export var speed = 100
+@export var accel = 10
 
-@onready var animation_player = $AnimationPlayer
+@onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D as AnimatedSprite2D
 @onready var state_machine: Node = get_node("FiniteStateMachine")
 @onready var collision_shape_2d = $CollisionShape2D
 
@@ -40,10 +40,11 @@ func _physics_process(_delta: float) -> void:
 			
 			velocity.y = move_toward(velocity.y, speed * direction.y, accel)
 			
-			#if velocity.x > 0 and animation_player.flip_h:
-				#animation_player.flip_h = false
-			#elif velocity.x < 0 and not animation_player.flip_h:
-				#animation_player.flip_h = true
+			if velocity.x > 0 and anim_sprite.flip_h:
+				anim_sprite.flip_h = false
+			elif velocity.x < 0 and not anim_sprite.flip_h:
+				anim_sprite.flip_h = true
+				
 			move_and_slide()
 			_shrink_grow()
 			
@@ -58,8 +59,8 @@ func _shrink_grow():
 
 	if Input.is_action_just_pressed("shrink_grow"): #player presses space to grow or shrink
 		if scale.x == 1:
-			scale.x = 2
-			scale.y = 2
+			scale.x = 5
+			scale.y = 5
 		else:
 			scale.x = 1
 			scale.y = 1

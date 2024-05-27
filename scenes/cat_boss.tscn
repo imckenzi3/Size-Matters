@@ -1,23 +1,24 @@
-[gd_scene load_steps=12 format=3 uid="uid://c7iqvdjd421vv"]
+[gd_scene load_steps=13 format=3 uid="uid://c7iqvdjd421vv"]
 
-[ext_resource type="Script" path="res://scripts/FiniteStateMachine.gd" id="1_82uo7"]
-[ext_resource type="Script" path="res://scenes/cat_boss.gd" id="1_jfckd"]
+[ext_resource type="Script" path="res://scripts/cat_boss.gd" id="1_o32t1"]
 [ext_resource type="Script" path="res://scripts/State.gd" id="2_a0err"]
-[ext_resource type="Script" path="res://scenes/Idle.gd" id="2_lymr4"]
-[ext_resource type="Script" path="res://scenes/Follow.gd" id="3_n2gcy"]
-[ext_resource type="Script" path="res://scenes/Death.gd" id="6_0rnkj"]
+[ext_resource type="Script" path="res://scripts/FiniteStateMachineCat.gd" id="2_i4a5i"]
+[ext_resource type="Script" path="res://scripts/Idle.gd" id="3_k236o"]
+[ext_resource type="Script" path="res://scripts/Follow.gd" id="4_src2a"]
+[ext_resource type="Script" path="res://scripts/MeleeAttack.gd" id="5_ud18c"]
+[ext_resource type="Script" path="res://scripts/Death.gd" id="7_g16g7"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tap1n"]
 size = Vector2(25, 25)
 
 [sub_resource type="Animation" id="Animation_ql2yu"]
-resource_name = "Idle"
+resource_name = "idle"
 length = 0.4
 loop_mode = 1
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dciq2"]
 _data = {
-"Idle": SubResource("Animation_ql2yu")
+"idle": SubResource("Animation_ql2yu")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jyuqk"]
@@ -28,19 +29,19 @@ radius = 103.005
 [node name="CatBoss" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("1_jfckd")
+script = ExtResource("1_o32t1")
 
 [node name="FiniteStateMachine" type="Node2D" parent="."]
-script = ExtResource("1_82uo7")
+script = ExtResource("2_i4a5i")
 
 [node name="Idle" type="Node2D" parent="FiniteStateMachine"]
-script = ExtResource("2_lymr4")
+script = ExtResource("3_k236o")
 
 [node name="Follow" type="Node2D" parent="FiniteStateMachine"]
-script = ExtResource("3_n2gcy")
+script = ExtResource("4_src2a")
 
 [node name="MeleeAttack" type="Node2D" parent="FiniteStateMachine"]
-script = ExtResource("2_a0err")
+script = ExtResource("5_ud18c")
 
 [node name="RangedAttack" type="Node2D" parent="FiniteStateMachine"]
 script = ExtResource("2_a0err")
@@ -55,7 +56,7 @@ script = ExtResource("2_a0err")
 script = ExtResource("2_a0err")
 
 [node name="Death" type="Node2D" parent="FiniteStateMachine"]
-script = ExtResource("6_0rnkj")
+script = ExtResource("7_g16g7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.635294, 0, 0.192157, 1)
@@ -69,7 +70,7 @@ texture = SubResource("PlaceholderTexture2D_tap1n")
 libraries = {
 "": SubResource("AnimationLibrary_dciq2")
 }
-autoplay = "Idle"
+autoplay = "idle"
 
 [node name="UI" type="CanvasLayer" parent="."]
 
