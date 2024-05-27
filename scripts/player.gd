@@ -7,6 +7,15 @@ extends CharacterBody2D
 @onready var state_machine: Node = get_node("FiniteStateMachine")
 @onready var collision_shape_2d = $CollisionShape2D
 
+# TODO:  Player Collision with boss TODO
+# TODO:  Player Collision with boss attacks TODO
+# TODO:  Player move sound TODO
+# TODO:  Player eat sound TODO
+# TODO:  Player hit sound TODO
+# TODO:  Player die sound TODO
+# TODO:  Player eat cheese to grow to do more damage TODO
+# TODO:  boss drops cheese randomly TODO
+
 # TODO:  Game Concept: Size Matters TODO
 # Overview 
 # "Size Matters" is a physics-based puzzle-platformer where players manipulate the size of their character  

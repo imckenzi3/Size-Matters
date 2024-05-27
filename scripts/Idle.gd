@@ -16,3 +16,7 @@ func transition():
 
 func _on_player_detection_body_entered(body):
 	player_entered = true
+
+
+func _on_player_detection_body_exited(body):
+	player_entered = false

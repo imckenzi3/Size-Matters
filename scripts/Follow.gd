@@ -3,7 +3,7 @@ extends State
 func enter():
 	super.enter()
 	owner.set_physics_process(true)
-	animation_player.play("idle")
+	animation_player.play("move")
  
 func exit():
 	super.exit()

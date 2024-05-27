@@ -7,7 +7,6 @@
 
 [node name="Player" parent="." instance=ExtResource("1_jpam5")]
 position = Vector2(23, 51)
-scale = Vector2(5, 5)
 
 [node name="CatBoss" parent="." instance=ExtResource("2_f47yo")]
 position = Vector2(587, 309)
