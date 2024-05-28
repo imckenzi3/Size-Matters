@@ -4,14 +4,14 @@
 [ext_resource type="Script" path="res://scripts/spear.gd" id="1_kt175"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chds6"]
-size = Vector2(3.7165, 62.093)
+size = Vector2(5.09769, 62.093)
 
 [node name="spear" type="Area2D"]
 collision_layer = 8
 script = ExtResource("1_kt175")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.375673, -2.11049)
+position = Vector2(0.446033, -2.50952)
 rotation = -1.39626
 shape = SubResource("RectangleShape2D_chds6")
 

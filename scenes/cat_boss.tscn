@@ -1,4 +1,4 @@
-[gd_scene load_steps=128 format=3 uid="uid://c7iqvdjd421vv"]
+[gd_scene load_steps=129 format=3 uid="uid://c7iqvdjd421vv"]
 
 [ext_resource type="Script" path="res://scripts/cat_boss.gd" id="1_o32t1"]
 [ext_resource type="Script" path="res://scripts/FiniteStateMachineCat.gd" id="2_i4a5i"]
@@ -754,6 +754,42 @@ tracks/1/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HitboxMelee/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HitboxMelee/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(32.5, -6.5)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HitboxMelee/CollisionShape2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.15708]
+}
 
 [sub_resource type="Animation" id="Animation_h3ajc"]
 resource_name = "armor_buff"
@@ -925,6 +961,42 @@ tracks/1/keys = {
 "update": 1,
 "values": [&"melee_attack"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HitboxMelee/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.9, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HitboxMelee/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.9, 1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(33.5, -6.5), Vector2(32.5, -6.5), Vector2(34, -11), Vector2(24, -27), Vector2(18, -28), Vector2(46, 26), Vector2(46, 27), Vector2(47, 6), Vector2(34, -11), Vector2(33, -7)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HitboxMelee/CollisionShape2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.9, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.15708, -0.558505, -0.610865, -1.13446, -1.05343, 0.0]
+}
 
 [sub_resource type="Animation" id="Animation_fj1r3"]
 resource_name = "move"
@@ -999,16 +1071,19 @@ _data = {
 radius = 212.009
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_am0y2"]
-radius = 27.0
+radius = 28.0
 height = 80.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_03862"]
-radius = 27.0
+radius = 28.0
 height = 80.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7jk1"]
+size = Vector2(40, 26.9985)
+
 [node name="CatBoss" type="CharacterBody2D"]
-collision_layer = 2
-collision_mask = 0
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_o32t1")
 
 [node name="FiniteStateMachine" type="Node2D" parent="."]
@@ -1036,6 +1111,7 @@ script = ExtResource("8_rbb0u")
 script = ExtResource("7_g16g7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_cjlew")
 
 [node name="Pivot" type="Node2D" parent="."]
@@ -1076,6 +1152,7 @@ theme_override_font_sizes/font_size = 24
 text = "Cat Boss"
 
 [node name="Label" type="Label" parent="UI"]
+visible = false
 self_modulate = Color(1, 1, 1, 0)
 anchors_preset = 8
 anchor_left = 0.5
@@ -1093,27 +1170,38 @@ text = "Boss Slain"
 
 [node name="debug" type="Label" parent="."]
 offset_left = -23.0
-offset_top = -65.0
+offset_top = -100.0
 offset_right = 26.0
-offset_bottom = -42.0
+offset_bottom = -77.0
 text = "debug"
 
 [node name="PlayerDetection" type="Area2D" parent="."]
+position = Vector2(0, -40)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
 visible = false
 shape = SubResource("CircleShape2D_i7b1q")
 
 [node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(0, -40)
 script = ExtResource("17_k7pry")
-knockback_force = 500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(2, 0)
 shape = SubResource("CapsuleShape2D_am0y2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2, 0)
+position = Vector2(2, -40)
 shape = SubResource("CapsuleShape2D_03862")
+
+[node name="HitboxMelee" type="Area2D" parent="."]
+position = Vector2(0, -40)
+script = ExtResource("17_k7pry")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxMelee"]
+position = Vector2(32.5, -6.5)
+rotation = 0.15708
+shape = SubResource("RectangleShape2D_p7jk1")
+disabled = true
 
 [connection signal="body_entered" from="PlayerDetection" to="FiniteStateMachine/Idle" method="_on_player_detection_body_entered"]

@@ -11,6 +11,7 @@ func enter(): #upon entering, start ranged_attack wait for animation, then shoot
 	shoot()
 	can_transition = true 
  
+#FIXME: Fix spear not damaging player FIXME
 func shoot():
 	var spear = spear_node.instantiate()
 	spear.position = owner.position

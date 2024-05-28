@@ -3,7 +3,6 @@ extends CharacterBody2D
 @onready var player = get_parent().find_child("player")
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D as AnimatedSprite2D
 @onready var progress_bar = $UI/ProgressBar
-#@onready var player = $"../Player"
 
 var direction : Vector2
 var DEF = 0
@@ -18,7 +17,7 @@ var health = 100:
 		elif value <= progress_bar.max_value / 2 and DEF == 0:
 			DEF = 5
 			find_child("FiniteStateMachine").change_state("ArmorBuff") 
- 
+
 func _ready():
 	set_physics_process(false)
  

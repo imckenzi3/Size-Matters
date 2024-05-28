@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var speed = 100
 @export var accel = 10
+@onready var cat_boss = $"../CatBoss"
 
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D as AnimatedSprite2D
 @onready var state_machine: Node = get_node("FiniteStateMachine")
@@ -14,16 +15,17 @@ signal hp_changed(new_hp)
 signal stam_changed(new_stam)
 
 
+# TODO:  Start Menu TODO
+# TODO:  Retry Btn after player death TODO
 
-# TODO:  Player Collision with boss melee_attack TODO
-# TODO:  Player Collision with boss ranged_attack TODO
 # TODO:  Player eat boss damage TODO
+# TODO:  Player knock back TODO
+# TODO:  boss hit effect TODO
+# TODO:  boss hit sound TODO
 # TODO:  Player move sound TODO
 # TODO:  Player eat sound TODO
 # TODO:  Player hit sound TODO
 # TODO:  Player die sound TODO
-# TODO:  Player eat cheese to grow to do more damage TODO
-# TODO:  boss drops cheese randomly TODO
 
 # TODO:  Game Concept: Size Matters TODO
 # Overview 
@@ -66,17 +68,16 @@ func _physics_process(_delta: float) -> void:
 			move_and_slide()
 			_shrink_grow()
 			
-
 func eat():
 	anim_sprite.play("eat")
- 
+	cat_boss.take_damage()
+ 	
 func _input(event):
 	if event.is_action("eat"):
 		eat()
 
 func _shrink_grow():
-
-# TODO: Resizing Mechanic: TODO
+# TODO: Resizing Mechanic? TODO
 #
 #Players can change their character's size at will, shrinking to fit through tight spaces or growing to
 #reach high platforms.
@@ -95,7 +96,7 @@ func take_damage(dam: int, dir: Vector2, force: int) -> void:
 	if state_machine.state != state_machine.states.hurt and state_machine.state != state_machine.states.dead:
 		#audio_stream_player_2d_hurt.play()						#audio goes here
 		self.hp -= dam #subtracte hp based on damage
-		frameFreeze(0.1, 0.4) #free frame (time scale, duration)
+		#frameFreeze(0.1, 0.4) #free frame (time scale, duration)
 		
 		#player damaged here
 		if hp > 0:
@@ -106,7 +107,6 @@ func take_damage(dam: int, dir: Vector2, force: int) -> void:
 			state_machine.set_state(state_machine.states.dead)
 			#audio_stream_player_2d_dead.play()					#audio goes here
 			velocity += dir * force * 2
-			
 
 func frameFreeze(timeScale, duration): #call when you want to freeze "time"
 	Engine.time_scale = timeScale
