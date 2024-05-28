@@ -14,7 +14,6 @@ extends CharacterBody2D
 signal hp_changed(new_hp)
 signal stam_changed(new_stam)
 
-
 # TODO:  Start Menu TODO
 # TODO:  Retry Btn after player death TODO
 
@@ -40,7 +39,7 @@ signal stam_changed(new_stam)
 #is found.
 
 # TODO:  Environmental Interaction: TODO
-#
+	
 #Certain objects react differently based on size. For example, a small character can walk on fragile surfaces
 #without breaking them, while a larger character can break through barriers.
 #Water behaves differently with size, allowing large characters to float and small ones to sink, adding a 
@@ -67,10 +66,12 @@ func _physics_process(_delta: float) -> void:
 				
 			move_and_slide()
 			_shrink_grow()
-			
+
 func eat():
 	anim_sprite.play("eat")
-	cat_boss.take_damage()
+	self.stam -= 1
+	cat_boss.health -= 1
+	#body.take_damage()
  	
 func _input(event):
 	if event.is_action("eat"):

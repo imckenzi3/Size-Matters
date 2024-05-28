@@ -6,5 +6,5 @@ func enter():
 
 	
 func transition():
-	if owner.direction.length() > 45:
+	if owner.direction.length() > 100:
 		get_parent().change_state("Follow")

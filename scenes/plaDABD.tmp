@@ -471,8 +471,7 @@ animations = [{
 radius = 4.0
 
 [node name="player" type="CharacterBody2D"]
-collision_layer = 2
-collision_mask = 7
+collision_mask = 5
 script = ExtResource("1_mpxgp")
 
 [node name="FiniteStateMachine" type="Node2D" parent="."]
@@ -494,8 +493,8 @@ animation = &"idle"
 autoplay = "idle"
 
 [node name="playerBite" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("8_gvvgh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerBite"]
@@ -520,5 +519,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 48
 text = "You Died"
+
+[node name="StamTimer" type="Timer" parent="."]
 
 [connection signal="body_entered" from="playerBite" to="playerBite" method="_on_body_entered"]
