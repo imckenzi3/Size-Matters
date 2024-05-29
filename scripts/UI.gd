@@ -21,23 +21,23 @@ func _ready() -> void:
 	_update_health_bar(100)
 	_update_stamina_bar(4)
 	
-func _process(delta):
-		if can_regen == false && stam_bar.value != 4 or stam_bar.value == 0:
-				can_start_stimer = true
-				if can_start_stimer:
-					s_timer += delta
-					if s_timer >= time_to_wait:
-						can_regen = true
-						can_start_stimer = false
-						s_timer = 0
-						
-		if stam_bar.value == 4:
-			can_regen = false
-			
-		if can_regen == true:
-			stam_bar.value += 0.5
-			can_start_stimer = false
-			s_timer = 0
+#func _process(delta):
+		#if can_regen == false && stam_bar.value != 4 or stam_bar.value == 0:
+				#can_start_stimer = true
+				#if can_start_stimer:
+					#s_timer += delta
+					#if s_timer >= time_to_wait:
+						#can_regen = true
+						#can_start_stimer = false
+						#s_timer = 0
+						#
+		#if stam_bar.value == 4:
+			#can_regen = false
+			#
+		#if can_regen == true:
+			#stam_bar.value += 0.5
+			#can_start_stimer = false
+			#s_timer = 0
 		#
 		#if Input.is_action_just_pressed("eat"):
 			#stam_bar.value -= 1

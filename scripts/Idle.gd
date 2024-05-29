@@ -4,6 +4,7 @@ extends State
 @onready var progress_bar = owner.find_child("ProgressBar")
  
 var player_entered: bool = false:
+	
 	set(value):
 		player_entered = value
 		collision_shape_2d.set_deferred("disabled", value)

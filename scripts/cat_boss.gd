@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var player = get_parent().find_child("player")
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D as AnimatedSprite2D
 @onready var progress_bar = $UI/ProgressBar
+@onready var hitbox = $Hitbox
 
 var direction : Vector2
 var DEF = 0
@@ -28,12 +29,15 @@ func _process(_delta):
 		sprite.flip_h = true
 	else:
 		sprite.flip_h = false
- 
+ 	
+	hitbox.knockback_direction = velocity.normalized()
+	
 func _physics_process(delta):
 	velocity = direction.normalized() * 40
 	move_and_collide(velocity * delta)
  
 func take_damage():
 	health -= 10 - DEF
-	
+	#Damage animation goes here
+	#Damage sound goes here
 	

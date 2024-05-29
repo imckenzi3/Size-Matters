@@ -1,4 +1,4 @@
-[gd_scene load_steps=129 format=3 uid="uid://c7iqvdjd421vv"]
+[gd_scene load_steps=132 format=3 uid="uid://c7iqvdjd421vv"]
 
 [ext_resource type="Script" path="res://scripts/cat_boss.gd" id="1_o32t1"]
 [ext_resource type="Script" path="res://scripts/FiniteStateMachineCat.gd" id="2_i4a5i"]
@@ -14,9 +14,14 @@
 [ext_resource type="Script" path="res://scripts/Dash.gd" id="8_rbb0u"]
 [ext_resource type="Texture2D" uid="uid://b36gnvsndlc54" path="res://assets/sprite sheet/boss/Meowgoro-Dead.png" id="9_7tdvm"]
 [ext_resource type="Texture2D" uid="uid://dj4j34ka64w1m" path="res://assets/sprite sheet/boss/Meowgoro-Dash.png" id="10_mbtnp"]
+[ext_resource type="Shader" path="res://scenes/hit.gdshader" id="10_tbsdy"]
 [ext_resource type="Texture2D" uid="uid://bxsff7pio63ln" path="res://assets/sprite sheet/boss/Meowgoro-Walk.png" id="11_43bc6"]
 [ext_resource type="Texture2D" uid="uid://7swj3mxyycmv" path="res://assets/sprite sheet/boss/Meowgoro-ranged_attack.png" id="16_vax3d"]
 [ext_resource type="Script" path="res://scripts/hitbox.gd" id="17_k7pry"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uk6e0"]
+shader = ExtResource("10_tbsdy")
+shader_parameter/hit_opacity = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qvsy3"]
 atlas = ExtResource("8_p2fl8")
@@ -968,7 +973,7 @@ tracks/2/path = NodePath("HitboxMelee/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.9, 1.8),
+"times": PackedFloat32Array(0, 1.1, 1.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
@@ -1055,6 +1060,58 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 16]
 }
 
+[sub_resource type="Animation" id="Animation_y5sx3"]
+resource_name = "hurt"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:material:shader")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("10_tbsdy")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:material:shader_parameter/hit_opacity")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dciq2"]
 _data = {
 "RESET": SubResource("Animation_c1wyr"),
@@ -1062,6 +1119,7 @@ _data = {
 "boss_slain": SubResource("Animation_hhift"),
 "dash": SubResource("Animation_ahb6j"),
 "death": SubResource("Animation_um6fg"),
+"hurt": SubResource("Animation_y5sx3"),
 "idle": SubResource("Animation_ql2yu"),
 "melee_attack": SubResource("Animation_irvty"),
 "move": SubResource("Animation_fj1r3"),
@@ -1072,15 +1130,15 @@ _data = {
 radius = 212.009
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_am0y2"]
-radius = 28.0
+radius = 29.0
 height = 80.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_03862"]
-radius = 28.0
-height = 80.0
+radius = 27.0
+height = 78.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p7jk1"]
-size = Vector2(40, 26.9985)
+size = Vector2(40, 25.4328)
 
 [node name="CatBoss" type="CharacterBody2D"]
 collision_layer = 4
@@ -1112,6 +1170,7 @@ script = ExtResource("8_rbb0u")
 script = ExtResource("7_g16g7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_uk6e0")
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_cjlew")
 
@@ -1186,7 +1245,7 @@ visible = false
 shape = SubResource("CircleShape2D_i7b1q")
 
 [node name="Hitbox" type="Area2D" parent="."]
-position = Vector2(0, -40)
+position = Vector2(1, -40)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("17_k7pry")
@@ -1196,13 +1255,13 @@ position = Vector2(2, 0)
 shape = SubResource("CapsuleShape2D_am0y2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2, -40)
+position = Vector2(3, -40)
 shape = SubResource("CapsuleShape2D_03862")
 
 [node name="HitboxMelee" type="Area2D" parent="."]
 position = Vector2(0, -40)
 collision_layer = 0
-collision_mask = 3
+collision_mask = 2
 script = ExtResource("17_k7pry")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxMelee"]

@@ -26,6 +26,7 @@ texture_progress = ExtResource("5_onva0")
 tint_progress = Color(0.513726, 0.054902, 0, 1)
 
 [node name="StaminaBar" type="TextureProgressBar" parent="UI"]
+visible = false
 offset_top = 40.0
 offset_right = 80.0
 offset_bottom = 80.0

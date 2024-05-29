@@ -14,13 +14,21 @@ extends CharacterBody2D
 signal hp_changed(new_hp)
 signal stam_changed(new_stam)
 
-# TODO:  Start Menu TODO
+var move_direction: Vector2 = Vector2.ZERO
+const FRICTION: float = 0.15 
+@export var acc: int = 40 #acceleration
+@export var max_speed: int = 100 #max_speed
+@export var knockbackPower: int = 8 #max_speed
+const friction = 60 #friction
+
 # TODO:  Retry Btn after player death TODO
 
 # TODO:  Player eat boss damage TODO
 # TODO:  Player knock back TODO
+
 # TODO:  boss hit effect TODO
 # TODO:  boss hit sound TODO
+
 # TODO:  Player move sound TODO
 # TODO:  Player eat sound TODO
 # TODO:  Player hit sound TODO
@@ -53,26 +61,71 @@ signal stam_changed(new_stam)
 #compressing sound for shrinking.
 
 func _physics_process(_delta: float) -> void:
-			var direction: Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+			#var direction: Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+			#
+			#velocity.x = move_toward(velocity.x, speed * direction.x, accel) 
+			#
+			#velocity.y = move_toward(velocity.y, speed * direction.y, accel)
 			
-			velocity.x = move_toward(velocity.x, speed * direction.x, accel) 
-			
-			velocity.y = move_toward(velocity.y, speed * direction.y, accel)
+			#movement - current main working player movement
+			var input_dir: Vector2 = input()
+			if input_dir != Vector2.ZERO: 
+				accelerate(input_dir)
+			else:
+				add_friction()
+				
+			input() #player movement
 			
 			if velocity.x > 0 and anim_sprite.flip_h:
 				anim_sprite.flip_h = false
 			elif velocity.x < 0 and not anim_sprite.flip_h:
 				anim_sprite.flip_h = true
 				
-			move_and_slide()
+			#move_and_slide()
 			_shrink_grow()
+			
+func accelerate(direction):
+	velocity = velocity.move_toward(speed * direction, acc)
+		
+func add_friction():
+	velocity = velocity.move_toward(Vector2.ZERO, friction)
+	
+#movement
+func input() -> Vector2:
+	var input_dir = Vector2.ZERO
+	#get input direction
+	input_dir.x = Input.get_axis("ui_left", "ui_right")
+	input_dir = input_dir.normalized()
+	
+	#movement
+	input_dir = Vector2.ZERO
+	input_dir.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	input_dir.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	
+	return input_dir
+	
+	
+func player_movement():
+	move_and_slide()
+	
+			
+func get_input() -> void:    
+	move_direction = Vector2.ZERO
+		
+	if Input.is_action_pressed("ui_down"):
+		move_direction += Vector2.DOWN
+	if Input.is_action_pressed("ui_left"):
+		move_direction += Vector2.LEFT
+	if Input.is_action_pressed("ui_right"):
+		move_direction += Vector2.RIGHT
+	if Input.is_action_pressed("ui_up"):
+		move_direction += Vector2.UP
 
 func eat():
 	anim_sprite.play("eat")
 	self.stam -= 1
-	cat_boss.health -= 1
-	#body.take_damage()
- 	
+	
+	
 func _input(event):
 	if event.is_action("eat"):
 		eat()
@@ -82,8 +135,6 @@ func _shrink_grow():
 #
 #Players can change their character's size at will, shrinking to fit through tight spaces or growing to
 #reach high platforms.
-#Objects in the environment can also be resized, such as shrinking a boulder to move it or enlarging a 
-#key to unlock a massive door.
 
 	if Input.is_action_just_pressed("shrink_grow"): #player presses space to grow or shrink
 		if scale.x == 1:
@@ -102,12 +153,11 @@ func take_damage(dam: int, dir: Vector2, force: int) -> void:
 		#player damaged here
 		if hp > 0:
 			state_machine.set_state(state_machine.states.hurt)
-			velocity += dir * force
-			#print("player hit")
+			knockback()
+			velocity += dir * force * knockbackPower
 		else:
 			state_machine.set_state(state_machine.states.dead)
 			#audio_stream_player_2d_dead.play()					#audio goes here
-			velocity += dir * force * 2
 
 func frameFreeze(timeScale, duration): #call when you want to freeze "time"
 	Engine.time_scale = timeScale
@@ -124,6 +174,13 @@ func set_stam(new_stam: int) -> void:
 	stam = new_stam
 	emit_signal("stam_changed", new_stam)
 	
+func knockback():
+	var knockbackDirection = -velocity.normalized() * knockbackPower
+	velocity = knockbackDirection
 
-
-
+	print_debug("player hit")
+	print_debug(velocity)
+	print_debug(position, "Before pos")
+	move_and_slide()
+	print_debug(position, "After pos")
+	print_debug(" ")
