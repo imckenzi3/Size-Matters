@@ -4,6 +4,8 @@ extends CharacterBody2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D as AnimatedSprite2D
 @onready var progress_bar = $UI/ProgressBar
 @onready var hitbox = $Hitbox
+@onready var hitbox_2 = $Hitbox2
+@onready var animation_player = $AnimationPlayer
 
 var direction : Vector2
 var DEF = 0
@@ -27,17 +29,23 @@ func _process(_delta):
 	
 	if direction.x < 0:
 		sprite.flip_h = true
+		hitbox_2.scale.x = -1
 	else:
 		sprite.flip_h = false
- 	
-	hitbox.knockback_direction = velocity.normalized()
+		hitbox_2.scale.x = 1
 	
 func _physics_process(delta):
 	velocity = direction.normalized() * 40
 	move_and_collide(velocity * delta)
- 
+	
+	hitbox.knockback_direction = velocity.normalized()
+	hitbox_2.knockback_direction = velocity.normalized()
+	
 func take_damage():
 	health -= 10 - DEF
-	#Damage animation goes here
+	
+	#FIXME: Animation hurt cancels attack - just want white damage effect FIXME
+	animation_player.play("hurt")
+	
 	#Damage sound goes here
 	

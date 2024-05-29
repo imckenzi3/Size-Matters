@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://tjukgvk5qcvi"]
+[gd_scene load_steps=3 format=3 uid="uid://tjukgvk5qcvi"]
 
-[ext_resource type="Script" path="res://scenes/menu.gd" id="1_5en5c"]
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_5en5c"]
+[ext_resource type="PackedScene" uid="uid://cukx6ye5ywvd2" path="res://scripts/options_menu.tscn" id="2_2tm1l"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -12,15 +13,26 @@ grow_vertical = 2
 script = ExtResource("1_5en5c")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 48
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 48
 text = "Size Matters
 "
@@ -28,17 +40,27 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 60)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Play"
 
 [node name="Options" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 60)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Options"
 
 [node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 60)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Quit
 "
+
+[node name="Menu" parent="." instance=ExtResource("2_2tm1l")]
+visible = false
+layout_mode = 1
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]

@@ -1,13 +1,14 @@
 extends CharacterBody2D
 
 @export var speed = 100
-@export var accel = 10
+@export var accel = 40
 @onready var cat_boss = $"../CatBoss"
 
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D as AnimatedSprite2D
 @onready var state_machine: Node = get_node("FiniteStateMachine")
 @onready var collision_shape_2d = $CollisionShape2D
 @onready var player = $"."
+@onready var player_bite = $playerBite
 
 @export var hp: int = 4: set = set_hp
 @export var stam: int = 4: set = set_stam
@@ -16,15 +17,9 @@ signal stam_changed(new_stam)
 
 var move_direction: Vector2 = Vector2.ZERO
 const FRICTION: float = 0.15 
-@export var acc: int = 40 #acceleration
-@export var max_speed: int = 100 #max_speed
-@export var knockbackPower: int = 8 #max_speed
+
+@export var knockbackPower: int = 8 
 const friction = 60 #friction
-
-# TODO:  Retry Btn after player death TODO
-
-# TODO:  Player eat boss damage TODO
-# TODO:  Player knock back TODO
 
 # TODO:  boss hit effect TODO
 # TODO:  boss hit sound TODO
@@ -83,10 +78,10 @@ func _physics_process(_delta: float) -> void:
 				
 			#move_and_slide()
 			_shrink_grow()
-			
+
 func accelerate(direction):
-	velocity = velocity.move_toward(speed * direction, acc)
-		
+	velocity = velocity.move_toward(speed * direction, accel)
+	
 func add_friction():
 	velocity = velocity.move_toward(Vector2.ZERO, friction)
 	
@@ -103,15 +98,12 @@ func input() -> Vector2:
 	input_dir.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	
 	return input_dir
-	
-	
+
 func player_movement():
 	move_and_slide()
-	
-			
+
 func get_input() -> void:    
 	move_direction = Vector2.ZERO
-		
 	if Input.is_action_pressed("ui_down"):
 		move_direction += Vector2.DOWN
 	if Input.is_action_pressed("ui_left"):
@@ -125,17 +117,14 @@ func eat():
 	anim_sprite.play("eat")
 	self.stam -= 1
 	
-	
-func _input(event):
-	if event.is_action("eat"):
+func _input(_event):
+	if Input.is_action_just_pressed("eat"):
 		eat()
 
 func _shrink_grow():
 # TODO: Resizing Mechanic? TODO
-#
 #Players can change their character's size at will, shrinking to fit through tight spaces or growing to
 #reach high platforms.
-
 	if Input.is_action_just_pressed("shrink_grow"): #player presses space to grow or shrink
 		if scale.x == 1:
 			scale.x = 5
@@ -153,7 +142,6 @@ func take_damage(dam: int, dir: Vector2, force: int) -> void:
 		#player damaged here
 		if hp > 0:
 			state_machine.set_state(state_machine.states.hurt)
-			knockback()
 			velocity += dir * force * knockbackPower
 		else:
 			state_machine.set_state(state_machine.states.dead)
@@ -174,13 +162,3 @@ func set_stam(new_stam: int) -> void:
 	stam = new_stam
 	emit_signal("stam_changed", new_stam)
 	
-func knockback():
-	var knockbackDirection = -velocity.normalized() * knockbackPower
-	velocity = knockbackDirection
-
-	print_debug("player hit")
-	print_debug(velocity)
-	print_debug(position, "Before pos")
-	move_and_slide()
-	print_debug(position, "After pos")
-	print_debug(" ")

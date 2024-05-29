@@ -733,6 +733,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7jk1"]
+size = Vector2(40, 25.4328)
+
 [sub_resource type="Animation" id="Animation_c1wyr"]
 length = 0.001
 tracks/0/type = "value"
@@ -762,38 +765,26 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("HitboxMelee/CollisionShape2D:disabled")
+tracks/2/path = NodePath("Hitbox2/CollisionShape2D:shape")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [SubResource("RectangleShape2D_p7jk1")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("HitboxMelee/CollisionShape2D:position")
+tracks/3/path = NodePath("Hitbox2/CollisionShape2D:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(32.5, -6.5)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("HitboxMelee/CollisionShape2D:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.15708]
+"values": [Vector2(34, -11)]
 }
 
 [sub_resource type="Animation" id="Animation_h3ajc"]
@@ -909,6 +900,58 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 }
 
+[sub_resource type="Animation" id="Animation_y5sx3"]
+resource_name = "hurt"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:material:shader")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("10_tbsdy")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:material:shader_parameter/hit_opacity")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
 [sub_resource type="Animation" id="Animation_ql2yu"]
 resource_name = "idle"
 length = 1.2
@@ -969,38 +1012,38 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("HitboxMelee/CollisionShape2D:disabled")
+tracks/2/path = NodePath("Hitbox2/CollisionShape2D:shape")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.1, 1.8),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true, false, true]
+"values": [SubResource("RectangleShape2D_p7jk1")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("HitboxMelee/CollisionShape2D:position")
+tracks/3/path = NodePath("Hitbox2/CollisionShape2D:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.9, 1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(33.5, -6.5), Vector2(32.5, -6.5), Vector2(34, -11), Vector2(24, -27), Vector2(18, -28), Vector2(46, 26), Vector2(46, 27), Vector2(47, 6), Vector2(34, -11), Vector2(33, -7)]
+"values": [Vector2(33, -7), Vector2(34, -11), Vector2(21, -28), Vector2(16, -29), Vector2(39, 27), Vector2(38, 28), Vector2(39, 4), Vector2(34, -10), Vector2(33, -6)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("HitboxMelee/CollisionShape2D:rotation")
+tracks/4/path = NodePath("Hitbox2/CollisionShape2D:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.9, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.15708, -0.558505, -0.610865, -1.13446, -1.05343, 0.0]
+"times": PackedFloat32Array(1.4, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_fj1r3"]
@@ -1060,58 +1103,6 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 16]
 }
 
-[sub_resource type="Animation" id="Animation_y5sx3"]
-resource_name = "hurt"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"default"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:material:shader")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("10_tbsdy")]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprite2D:material:shader_parameter/hit_opacity")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [1.0, 0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dciq2"]
 _data = {
 "RESET": SubResource("Animation_c1wyr"),
@@ -1137,12 +1128,9 @@ height = 80.0
 radius = 27.0
 height = 78.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7jk1"]
-size = Vector2(40, 25.4328)
-
 [node name="CatBoss" type="CharacterBody2D"]
+position = Vector2(30, 0)
 collision_layer = 4
-collision_mask = 5
 script = ExtResource("1_o32t1")
 
 [node name="FiniteStateMachine" type="Node2D" parent="."]
@@ -1171,7 +1159,7 @@ script = ExtResource("7_g16g7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_uk6e0")
-position = Vector2(0, -40)
+position = Vector2(-33, 0)
 sprite_frames = SubResource("SpriteFrames_cjlew")
 
 [node name="Pivot" type="Node2D" parent="."]
@@ -1229,10 +1217,10 @@ theme_override_font_sizes/font_size = 48
 text = "Boss Slain"
 
 [node name="debug" type="Label" parent="."]
-offset_left = -23.0
-offset_top = -100.0
-offset_right = 26.0
-offset_bottom = -77.0
+offset_left = -57.0
+offset_top = -60.0
+offset_right = -8.0
+offset_bottom = -37.0
 text = "debug"
 
 [node name="PlayerDetection" type="Area2D" parent="."]
@@ -1245,28 +1233,27 @@ visible = false
 shape = SubResource("CircleShape2D_i7b1q")
 
 [node name="Hitbox" type="Area2D" parent="."]
-position = Vector2(1, -40)
+position = Vector2(-32, 0)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("17_k7pry")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(2, 0)
+position = Vector2(2, 9.53674e-07)
 shape = SubResource("CapsuleShape2D_am0y2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, -40)
+position = Vector2(-30, 0)
 shape = SubResource("CapsuleShape2D_03862")
 
-[node name="HitboxMelee" type="Area2D" parent="."]
-position = Vector2(0, -40)
+[node name="Hitbox2" type="Area2D" parent="."]
+position = Vector2(-33, 0)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("17_k7pry")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxMelee"]
-position = Vector2(32.5, -6.5)
-rotation = 0.15708
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox2"]
+position = Vector2(34, -11)
 shape = SubResource("RectangleShape2D_p7jk1")
 disabled = true
 
