@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://scripts/RangedAttack.gd" id="6_rt5qu"]
 [ext_resource type="Script" path="res://scripts/ArmorBuff.gd" id="7_apsvn"]
 [ext_resource type="Script" path="res://scripts/Death.gd" id="7_g16g7"]
-[ext_resource type="Texture2D" uid="uid://ds7gqv23y0x2v" path="res://assets/sprite sheet/boss/Meowgoro-Attack1.png" id="8_5cku2"]
+[ext_resource type="Texture2D" path="res://assets/sprite sheet/boss/Meowgoro-Attack1.png" id="8_5cku2"]
 [ext_resource type="Texture2D" uid="uid://bwn1mx8x1ang4" path="res://assets/sprite sheet/boss/Meowgoro-Idle.png" id="8_ghf81"]
 [ext_resource type="Texture2D" uid="uid://boanneauperm1" path="res://assets/sprite sheet/boss/Meowgoro-Tornadospecial.png" id="8_p2fl8"]
 [ext_resource type="Script" path="res://scripts/Dash.gd" id="8_rbb0u"]
@@ -1421,7 +1421,6 @@ theme_override_font_sizes/font_size = 24
 text = "Cat Boss"
 
 [node name="Label" type="Label" parent="UI"]
-visible = false
 self_modulate = Color(1, 1, 1, 0)
 anchors_preset = 8
 anchor_left = 0.5
@@ -1438,6 +1437,7 @@ theme_override_font_sizes/font_size = 48
 text = "Boss Slain"
 
 [node name="debug" type="Label" parent="."]
+visible = false
 offset_left = -57.0
 offset_top = -60.0
 offset_right = -8.0

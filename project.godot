@@ -13,6 +13,13 @@ config_version=5
 config/name="Size-Matters"
 run/main_scene="res://scenes/menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
+boot_splash/image="res://assets/Cheese.png"
+config/icon="res://assets/Cheese.png"
+
+[display]
+
+window/stretch/mode="viewport"
+window/main_scene="res://scenes/menu.tscn"
 
 [editor_plugins]
 

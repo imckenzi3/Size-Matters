@@ -1,169 +1,100 @@
-[gd_scene load_steps=15 format=3 uid="uid://tjukgvk5qcvi"]
+[gd_scene load_steps=17 format=3 uid="uid://tjukgvk5qcvi"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_5en5c"]
-[ext_resource type="PackedScene" uid="uid://cukx6ye5ywvd2" path="res://scripts/options_menu.tscn" id="2_2tm1l"]
-[ext_resource type="AudioStream" uid="uid://d3ixhct1r4d61" path="res://assets/sounds/background.mp3" id="4_d7sxg"]
-[ext_resource type="Texture2D" uid="uid://dtqmknglnujhc" path="res://assets/sprite sheet/player/MouseRun.png" id="4_v6m6q"]
+[ext_resource type="AudioStream" uid="uid://c4em406oysdv3" path="res://assets/sounds/background/background.mp3" id="2_54802"]
+[ext_resource type="Texture2D" uid="uid://bwn1mx8x1ang4" path="res://assets/sprite sheet/boss/Meowgoro-Idle.png" id="5_qh7qc"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d0vns"]
-atlas = ExtResource("4_v6m6q")
-region = Rect2(0, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnkre"]
+atlas = ExtResource("5_qh7qc")
+region = Rect2(0, 0, 100, 95)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_s1qbo"]
-atlas = ExtResource("4_v6m6q")
-region = Rect2(0, 32, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_xp2qg"]
+atlas = ExtResource("5_qh7qc")
+region = Rect2(100, 0, 100, 95)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6avr7"]
-atlas = ExtResource("4_v6m6q")
-region = Rect2(0, 64, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcp3l"]
+atlas = ExtResource("5_qh7qc")
+region = Rect2(200, 0, 100, 95)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wbui7"]
-atlas = ExtResource("4_v6m6q")
-region = Rect2(0, 96, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_gj2jl"]
+atlas = ExtResource("5_qh7qc")
+region = Rect2(300, 0, 100, 95)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jsmki"]
-atlas = ExtResource("4_v6m6q")
-region = Rect2(0, 128, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_cc0vm"]
+atlas = ExtResource("5_qh7qc")
+region = Rect2(400, 0, 100, 95)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_owji6"]
-atlas = ExtResource("4_v6m6q")
-region = Rect2(0, 160, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4u0p"]
+atlas = ExtResource("5_qh7qc")
+region = Rect2(0, 95, 100, 95)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_woyvv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ya6o3"]
+atlas = ExtResource("5_qh7qc")
+region = Rect2(100, 95, 100, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_obp2s"]
+atlas = ExtResource("5_qh7qc")
+region = Rect2(200, 95, 100, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2lbp"]
+atlas = ExtResource("5_qh7qc")
+region = Rect2(300, 95, 100, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xu31l"]
+atlas = ExtResource("5_qh7qc")
+region = Rect2(400, 95, 100, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxuos"]
+atlas = ExtResource("5_qh7qc")
+region = Rect2(0, 190, 100, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckjjg"]
+atlas = ExtResource("5_qh7qc")
+region = Rect2(100, 190, 100, 95)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_71uyb"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d0vns")
+"texture": SubResource("AtlasTexture_dnkre")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_s1qbo")
+"texture": SubResource("AtlasTexture_xp2qg")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6avr7")
+"texture": SubResource("AtlasTexture_kcp3l")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wbui7")
+"texture": SubResource("AtlasTexture_gj2jl")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jsmki")
+"texture": SubResource("AtlasTexture_cc0vm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_owji6")
+"texture": SubResource("AtlasTexture_s4u0p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ya6o3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_obp2s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2lbp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xu31l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxuos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ckjjg")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
-
-[sub_resource type="Animation" id="Animation_unj6l"]
-resource_name = "move"
-length = 6.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 3.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(5, 5)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 3.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 3, 3.1, 6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(-72, 622), Vector2(1255, 622), Vector2(1244, 400), Vector2(-72, 400)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprite2D:sprite_frames")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [SubResource("SpriteFrames_woyvv")]
-}
-
-[sub_resource type="Animation" id="Animation_k5p5s"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-11, 640)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprite2D:sprite_frames")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [SubResource("SpriteFrames_woyvv")]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_wbvrk"]
-_data = {
-"RESET": SubResource("Animation_k5p5s"),
-"move": SubResource("Animation_unj6l")
-}
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -227,34 +158,18 @@ text = "Quit
 "
 flat = true
 
-[node name="Menu" parent="." instance=ExtResource("2_2tm1l")]
-visible = false
-layout_mode = 1
-
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_d7sxg")
+stream = ExtResource("2_54802")
 volume_db = -5.0
 pitch_scale = 0.5
 autoplay = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-11, 640)
-sprite_frames = SubResource("SpriteFrames_woyvv")
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+position = Vector2(912, 508)
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_71uyb")
 autoplay = "default"
-frame = 5
 flip_h = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_wbvrk")
-}
-autoplay = "move"
-
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_wbvrk")
-}
-autoplay = "move"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]

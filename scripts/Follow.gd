@@ -12,7 +12,7 @@ func exit():
 func transition():
 	var distance = owner.direction.length()
  
-	if distance < 65:
+	if distance < 120:
 		get_parent().change_state("MeleeAttack")
 	elif distance > 150:
 		var chance = randi() % 2

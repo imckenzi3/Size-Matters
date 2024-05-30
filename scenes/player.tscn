@@ -411,6 +411,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_so8xk"]
 resource_name = "move"
 length = 0.6
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -663,7 +664,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_f5pc5"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3yxyj"]
+size = Vector2(20, 9)
 
 [node name="player" type="CharacterBody2D"]
 collision_layer = 2
@@ -694,8 +696,8 @@ collision_mask = 4
 script = ExtResource("8_g8n05")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerBite"]
-position = Vector2(18, -1)
-shape = SubResource("CircleShape2D_f5pc5")
+position = Vector2(18, -1.5)
+shape = SubResource("RectangleShape2D_3yxyj")
 disabled = true
 
 [node name="UI" type="CanvasLayer" parent="."]

@@ -23,7 +23,8 @@ const friction = 60 #friction
 @onready var audio_stream_player_2d_eat = $AudioStreamPlayer2DEat
 @onready var animation_player = $AnimationPlayer
 
-
+# TODO:  Entry Cinematic? + Your too small you will never beat the boss taunt! TODO
+# TODO:  Victory Cinematic? + Your are not too small! You proved me wrong! TODO
 
 # TODO:  Game Concept: Size Matters TODO
 # Overview 
