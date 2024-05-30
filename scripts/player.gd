@@ -25,32 +25,7 @@ const friction = 60 #friction
 
 # TODO:  Entry Cinematic? + Your too small you will never beat the boss taunt! TODO
 # TODO:  Victory Cinematic? + Your are not too small! You proved me wrong! TODO
-
-# TODO:  Game Concept: Size Matters TODO
-# Overview 
-# "Size Matters" is a physics-based puzzle-platformer where players manipulate the size of their character  
-# and objects to navigate through challenging environments. The core mechanic revolves around resizing  
-# to solve puzzles, overcome obstacles, and explore different paths within the levels. 
-
-# TODO:  Energy System: TODO
-#
-#Resizing consumes energy, which is replenished by collecting energy orbs scattered throughout the levels.
-#Strategic resizing is essential, as running out of energy leaves the player unable to change size until more
-#is found.
-
-# TODO:  Environmental Interaction: TODO
-	
-#Certain objects react differently based on size. For example, a small character can walk on fragile surfaces
-#without breaking them, while a larger character can break through barriers.
-#Water behaves differently with size, allowing large characters to float and small ones to sink, adding a 
-#layer of strategy to water-based puzzles.
-
-# TODO:  Sound: TODO
-#
-#An adaptive soundtrack that changes with the player’s size, becoming more intense or subtle depending
-#on whether the character is large or small.
-#Sound effects that highlight the resizing process, such as a stretching noise for growing and a
-#compressing sound for shrinking.
+# TODO:  How to play controls TODO
 
 func _physics_process(_delta: float) -> void:
 			#var direction: Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -133,6 +108,7 @@ func _shrink_grow():
 			scale.x = 1
 			scale.y = 1
 
+# TODO: Player sometimes bugs out on death -> Change scene on death to try again scence  TODO
 func take_damage(dam: int, dir: Vector2, force: int) -> void:
 	if state_machine.state != state_machine.states.hurt and state_machine.state != state_machine.states.dead:
 		#audio_stream_player_2d_hurt.play()						#audio goes here
