@@ -20,14 +20,10 @@ const FRICTION: float = 0.15
 
 @export var knockbackPower: int = 8 
 const friction = 60 #friction
+@onready var audio_stream_player_2d_eat = $AudioStreamPlayer2DEat
+@onready var animation_player = $AnimationPlayer
 
-# TODO:  boss hit effect TODO
-# TODO:  boss hit sound TODO
 
-# TODO:  Player move sound TODO
-# TODO:  Player eat sound TODO
-# TODO:  Player hit sound TODO
-# TODO:  Player die sound TODO
 
 # TODO:  Game Concept: Size Matters TODO
 # Overview 
@@ -73,8 +69,10 @@ func _physics_process(_delta: float) -> void:
 			
 			if velocity.x > 0 and anim_sprite.flip_h:
 				anim_sprite.flip_h = false
+				player_bite.scale.x = 1
 			elif velocity.x < 0 and not anim_sprite.flip_h:
 				anim_sprite.flip_h = true
+				player_bite.scale.x = -1
 				
 			#move_and_slide()
 			_shrink_grow()
@@ -114,8 +112,9 @@ func get_input() -> void:
 		move_direction += Vector2.UP
 
 func eat():
-	anim_sprite.play("eat")
+	animation_player.play("eat")
 	self.stam -= 1
+	#audio_stream_player_2d_eat.play()
 	
 func _input(_event):
 	if Input.is_action_just_pressed("eat"):
@@ -145,6 +144,7 @@ func take_damage(dam: int, dir: Vector2, force: int) -> void:
 			velocity += dir * force * knockbackPower
 		else:
 			state_machine.set_state(state_machine.states.dead)
+			velocity += dir * force * knockbackPower * 2
 			#audio_stream_player_2d_dead.play()					#audio goes here
 
 func frameFreeze(timeScale, duration): #call when you want to freeze "time"

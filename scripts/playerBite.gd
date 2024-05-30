@@ -10,5 +10,6 @@ func _input(event):
 		if collision_shape_2d.disabled == true:
 			collision_shape_2d.disabled = false
 		else:
-			collision_shape_2d.disabled = true
+			if collision_shape_2d.disabled == false:
+				collision_shape_2d.disabled = true
 	

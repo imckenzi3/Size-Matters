@@ -45,7 +45,6 @@ func take_damage():
 	health -= 10 - DEF
 	
 	#FIXME: Animation hurt cancels attack - just want white damage effect FIXME
-	animation_player.play("hurt")
-	
+	#animation_player.play("hurt")
 	#Damage sound goes here
 	
