@@ -39,7 +39,9 @@ func _ready() -> void:
 			#can_start_stimer = false
 			#s_timer = 0
 		#
-		#if Input.is_action_just_pressed("eat"):
+		#if Input.is_action_just_pressed("eat") && stam_bar.value <= 4:
+			#player.animation_player.play("eat")
+			##await player.animation_player.animation_finished
 			#stam_bar.value -= 1
 			#can_regen = false
 			#s_timer = 0

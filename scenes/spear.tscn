@@ -20,3 +20,9 @@ shape = SubResource("RectangleShape2D_chds6")
 position = Vector2(-30, 2)
 rotation = 1.5708
 texture = ExtResource("1_gfod5")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

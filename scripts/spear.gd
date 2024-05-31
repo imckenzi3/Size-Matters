@@ -36,3 +36,5 @@ func _on_body_entered(body):
 			body.take_damage(damage, knockback_direction, knockback_force)
 		queue_free()
  
+func _on_timer_timeout():
+		queue_free() # if spear does not reach player remove spear

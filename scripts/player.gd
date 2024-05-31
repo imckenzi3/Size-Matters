@@ -18,14 +18,19 @@ signal stam_changed(new_stam)
 var move_direction: Vector2 = Vector2.ZERO
 const FRICTION: float = 0.15 
 
-@export var knockbackPower: int = 8 
+@export var knockbackPower: int = 5
 const friction = 60 #friction
 @onready var audio_stream_player_2d_eat = $AudioStreamPlayer2DEat
 @onready var animation_player = $AnimationPlayer
+@onready var joystick = $"../UI/HBoxContainer/Joystick"
+@onready var eat_btn = $"../UI/HBoxContainer/EatBtn"
 
 # TODO:  Entry Cinematic? + Your too small you will never beat the boss taunt! TODO
-# TODO:  Victory Cinematic? + Your are not too small! You proved me wrong! TODO
+# TODO:  Victory Cinematic + Victory Scene? + Your are not too small! You proved me wrong! TODO
 # TODO:  How to play controls TODO
+# TODO:  spawn random cheese that heals the player? TODO
+# TODO:  full screen TODO
+# TODO:  phone controls TODO
 
 func _physics_process(_delta: float) -> void:
 			#var direction: Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -33,26 +38,56 @@ func _physics_process(_delta: float) -> void:
 			#velocity.x = move_toward(velocity.x, speed * direction.x, accel) 
 			#
 			#velocity.y = move_toward(velocity.y, speed * direction.y, accel)
-			
-			#movement - current main working player movement
-			var input_dir: Vector2 = input()
-			if input_dir != Vector2.ZERO: 
-				accelerate(input_dir)
-			else:
-				add_friction()
+		match OS.get_name():
+			"iOS": #if on mobile show phone controls
+				joystick.visible = true
+				eat_btn.visible = true
+				var direction = joystick.posVector
+				if direction:
+					velocity = direction * speed * 1.10
+				else:
+					velocity = Vector2(0,0)
+			"Android": #if on mobile show phone controls
+				joystick.visible = true
+				eat_btn.visible = true
+				var direction = joystick.posVector
+				if direction:
+					velocity = direction * speed * 1.10
+				else:
+					velocity = Vector2(0,0)
 				
-			input() #player movement
-			
-			if velocity.x > 0 and anim_sprite.flip_h:
-				anim_sprite.flip_h = false
-				player_bite.scale.x = 1
-			elif velocity.x < 0 and not anim_sprite.flip_h:
-				anim_sprite.flip_h = true
-				player_bite.scale.x = -1
+			"Windows":
+				joystick.visible = false
+				eat_btn.visible = false
+				#movement - current main working player movement
+				var input_dir: Vector2 = input()
+				if input_dir != Vector2.ZERO: 
+					accelerate(input_dir)
+				else:
+					add_friction()
+					
+				input() #player movement
 				
-			#move_and_slide()
-			_shrink_grow()
-
+				if velocity.x > 0 and anim_sprite.flip_h:
+					anim_sprite.flip_h = false
+					player_bite.scale.x = 1
+				elif velocity.x < 0 and not anim_sprite.flip_h:
+					anim_sprite.flip_h = true
+					player_bite.scale.x = -1
+					
+				#move_and_slide()
+				_shrink_grow()
+				#
+				#if stam > 0:
+					#if Input.is_action_just_pressed("eat"):
+						#animation_player.play("eat")
+						##await animation_player.animation_finished
+						#self.stam -= 1
+							
+				if Input.is_action_just_pressed("eat") && hp != 0:
+					player.animation_player.play("eat")
+					#await player.animation_player.animation_finished
+			
 func accelerate(direction):
 	velocity = velocity.move_toward(speed * direction, accel)
 	
@@ -89,12 +124,15 @@ func get_input() -> void:
 
 func eat():
 	animation_player.play("eat")
-	self.stam -= 1
-	#audio_stream_player_2d_eat.play()
-	
-func _input(_event):
-	if Input.is_action_just_pressed("eat"):
-		eat()
+	#await animation_player.animation_finished
+	#self.stam -= 1
+	##audio_stream_player_2d_eat.play()
+	#
+#func _input(_event):
+	#if stam != 0:
+		#if Input.is_action_just_pressed("eat"):
+			#eat()
+			#await get_tree().create_timer(2.0).timeout
 
 func _shrink_grow():
 # TODO: Resizing Mechanic? TODO
@@ -108,7 +146,6 @@ func _shrink_grow():
 			scale.x = 1
 			scale.y = 1
 
-# TODO: Player sometimes bugs out on death -> Change scene on death to try again scence  TODO
 func take_damage(dam: int, dir: Vector2, force: int) -> void:
 	if state_machine.state != state_machine.states.hurt and state_machine.state != state_machine.states.dead:
 		#audio_stream_player_2d_hurt.play()						#audio goes here
@@ -121,7 +158,7 @@ func take_damage(dam: int, dir: Vector2, force: int) -> void:
 			velocity += dir * force * knockbackPower
 		else:
 			state_machine.set_state(state_machine.states.dead)
-			velocity += dir * force * knockbackPower * 2
+			velocity += dir * force * knockbackPower * 1.5
 			#audio_stream_player_2d_dead.play()					#audio goes here
 
 func frameFreeze(timeScale, duration): #call when you want to freeze "time"
@@ -139,3 +176,5 @@ func set_stam(new_stam: int) -> void:
 	stam = new_stam
 	emit_signal("stam_changed", new_stam)
 	
+func cancel_attack() -> void:
+	animation_player.play("RESET")

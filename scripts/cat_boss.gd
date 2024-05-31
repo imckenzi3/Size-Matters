@@ -46,5 +46,7 @@ func take_damage():
 	
 	#FIXME: Animation hurt cancels attack - just want white damage effect FIXME
 	#animation_player.play("hurt")
+	
+	#find_child("FiniteStateMachine").change_state("Follow")
 	#Damage sound goes here
 	

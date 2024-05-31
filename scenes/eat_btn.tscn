@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgoaty7m7jv77"]
+
+[ext_resource type="Texture2D" uid="uid://cqdgvvyf07fpd" path="res://assets/ui/joyknobpng.png" id="2_uvjfs"]
+
+[node name="EatBtn" type="TouchScreenButton"]
+visible = false
+position = Vector2(1020, 520)
+scale = Vector2(0.05, 0.05)
+texture_normal = ExtResource("2_uvjfs")
+action = "eat"

@@ -34,8 +34,10 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			animation_player.play("move")
 		states.hurt:
 			animation_player.play("hurt")
+			parent.cancel_attack() #Fixes player from be able to kill boss on death
 		states.dead:
 			animation_player.play("dead")
+			#parent.cancel_attack()
 			
 			#await animation_player.animation_finished
 			#get_tree().change_scene_to_file("res://scenes/you_died.tscn")
