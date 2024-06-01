@@ -8,9 +8,6 @@ var velocity: Vector2 = Vector2.ZERO
  
 var enemy_exited: bool = false
 
-#FIXME Make spear disappear when not hit player after a set amount of time?? or
-#	   Make spear go straight! FIXME
-
 func _physics_process(delta):
  
 	acceleration = (player.position - position).normalized() * 700 # vector to steer towards the player

@@ -25,12 +25,11 @@ const friction = 60 #friction
 @onready var joystick = $"../UI/HBoxContainer/Joystick"
 @onready var eat_btn = $"../UI/HBoxContainer/EatBtn"
 
-# TODO:  Entry Cinematic? + Your too small you will never beat the boss taunt! TODO
+
 # TODO:  Victory Cinematic + Victory Scene? + Your are not too small! You proved me wrong! TODO
 # TODO:  How to play controls TODO
 # TODO:  spawn random cheese that heals the player? TODO
 # TODO:  full screen TODO
-# TODO:  phone controls TODO
 
 func _physics_process(_delta: float) -> void:
 			#var direction: Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -59,6 +58,45 @@ func _physics_process(_delta: float) -> void:
 			"Windows":
 				joystick.visible = false
 				eat_btn.visible = false
+				#movement - current main working player movement
+				var input_dir: Vector2 = input()
+				if input_dir != Vector2.ZERO: 
+					accelerate(input_dir)
+				else:
+					add_friction()
+					
+				input() #player movement
+				
+				if velocity.x > 0 and anim_sprite.flip_h:
+					anim_sprite.flip_h = false
+					player_bite.scale.x = 1
+				elif velocity.x < 0 and not anim_sprite.flip_h:
+					anim_sprite.flip_h = true
+					player_bite.scale.x = -1
+					
+				#move_and_slide()
+				_shrink_grow()
+				#
+				#if stam > 0:
+					#if Input.is_action_just_pressed("eat"):
+						#animation_player.play("eat")
+						##await animation_player.animation_finished
+						#self.stam -= 1
+							
+				if Input.is_action_just_pressed("eat") && hp != 0:
+					player.animation_player.play("eat")
+					#await player.animation_player.animation_finished
+					
+			"Web":
+				joystick.visible = false
+				eat_btn.visible = false
+				if OS.has_feature("mobile"):
+					print_debug("has mobile")
+					joystick.visible = true
+					eat_btn.visible = true
+				else:
+					print("does not have mobile")
+
 				#movement - current main working player movement
 				var input_dir: Vector2 = input()
 				if input_dir != Vector2.ZERO: 

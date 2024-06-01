@@ -1,0 +1,49 @@
+[gd_scene load_steps=11 format=3 uid="uid://cxdn24mguqsrr"]
+
+[ext_resource type="PackedScene" uid="uid://blr3uh8r3yiot" path="res://scenes/candle.tscn" id="1_wr0na"]
+[ext_resource type="Texture2D" uid="uid://bnvxrthwubpew" path="res://assets/RF_Catacombs_v1.0/candleB_01.png" id="2_x2tum"]
+[ext_resource type="Texture2D" uid="uid://y3wpefvumtgh" path="res://assets/RF_Catacombs_v1.0/candleB_02.png" id="3_m3vng"]
+[ext_resource type="Texture2D" uid="uid://33srreqmytj6" path="res://assets/RF_Catacombs_v1.0/candleB_03.png" id="4_ob3ui"]
+[ext_resource type="Texture2D" uid="uid://fesd443j7shg" path="res://assets/RF_Catacombs_v1.0/candleB_04.png" id="5_3thy4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y8yvf"]
+atlas = ExtResource("2_x2tum")
+region = Rect2(0, 0, 13, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qun6k"]
+atlas = ExtResource("3_m3vng")
+region = Rect2(0, 0, 13, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pfoj"]
+atlas = ExtResource("4_ob3ui")
+region = Rect2(0, 0, 13, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55bp0"]
+atlas = ExtResource("5_3thy4")
+region = Rect2(0, 0, 13, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mnmfs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y8yvf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qun6k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pfoj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55bp0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="candles" instance=ExtResource("1_wr0na")]
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_mnmfs")
+frame_progress = 0.278373

@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://durbyypn4yna0"]
+[gd_scene load_steps=51 format=3 uid="uid://durbyypn4yna0"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_mpxgp"]
 [ext_resource type="Texture2D" uid="uid://2uk1bic3p8g0" path="res://assets/sprite sheet/player/MouseIdle.png" id="2_65g7o"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://bkt52hjmc2be2" path="res://assets/sounds/player/death.wav" id="5_cw6ne"]
 [ext_resource type="Script" path="res://scripts/playerBite.gd" id="8_g8n05"]
 [ext_resource type="Script" path="res://scripts/PlayAgain.gd" id="9_qq7ix"]
+[ext_resource type="Texture2D" uid="uid://cp4a8y3r4is22" path="res://assets/ui/TorchLight.png" id="13_mjbnx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4y6w8"]
 size = Vector2(16, 9)
@@ -162,6 +163,18 @@ tracks/11/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("UI/MarginContainer/VBoxContainer/Play:disabled")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_42mik"]
 resource_name = "dead"
@@ -258,6 +271,18 @@ tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("UI/MarginContainer/VBoxContainer/Play:disabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.8, 1.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -752,6 +777,7 @@ text = "You Died"
 [node name="Play" type="Button" parent="UI/MarginContainer/VBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
+disabled = true
 text = "Play Again"
 script = ExtResource("9_qq7ix")
 
@@ -768,6 +794,11 @@ pitch_scale = 2.0
 [node name="AudioStreamPlayer2DDead" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_cw6ne")
 volume_db = 1.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+enabled = false
+blend_mode = 1
+texture = ExtResource("13_mjbnx")
 
 [connection signal="body_entered" from="playerBite" to="." method="_on_player_bite_body_entered"]
 [connection signal="body_entered" from="playerBite" to="playerBite" method="_on_body_entered"]

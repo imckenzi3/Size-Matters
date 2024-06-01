@@ -14,6 +14,7 @@ var health = 100:
 	set(value):
 		health = value
 		progress_bar.value = value
+		
 		if value <= 0:
 			progress_bar.visible = false
 			find_child("FiniteStateMachine").change_state("Death")
@@ -49,4 +50,4 @@ func take_damage():
 	
 	#find_child("FiniteStateMachine").change_state("Follow")
 	#Damage sound goes here
-	
+

@@ -1,10 +1,11 @@
-[gd_scene load_steps=137 format=3 uid="uid://c7iqvdjd421vv"]
+[gd_scene load_steps=151 format=3 uid="uid://c7iqvdjd421vv"]
 
 [ext_resource type="Script" path="res://scripts/cat_boss.gd" id="1_o32t1"]
 [ext_resource type="Script" path="res://scripts/FiniteStateMachineCat.gd" id="2_i4a5i"]
 [ext_resource type="Script" path="res://scripts/Idle.gd" id="3_k236o"]
 [ext_resource type="Script" path="res://scripts/Follow.gd" id="4_src2a"]
 [ext_resource type="Script" path="res://scripts/MeleeAttack.gd" id="5_ud18c"]
+[ext_resource type="Script" path="res://scenes/JumpAttack.gd" id="6_4tnwp"]
 [ext_resource type="Script" path="res://scripts/RangedAttack.gd" id="6_rt5qu"]
 [ext_resource type="Script" path="res://scripts/ArmorBuff.gd" id="7_apsvn"]
 [ext_resource type="Script" path="res://scripts/Death.gd" id="7_g16g7"]
@@ -16,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://dj4j34ka64w1m" path="res://assets/sprite sheet/boss/Meowgoro-Dash.png" id="10_mbtnp"]
 [ext_resource type="Shader" path="res://scenes/hit.gdshader" id="10_tbsdy"]
 [ext_resource type="Texture2D" uid="uid://bxsff7pio63ln" path="res://assets/sprite sheet/boss/Meowgoro-Walk.png" id="11_43bc6"]
+[ext_resource type="Texture2D" uid="uid://ca50sdpqbhwxl" path="res://assets/sprite sheet/boss/Meowgoro-JumpingAxeAttack.png" id="12_ow0cg"]
 [ext_resource type="Texture2D" uid="uid://7swj3mxyycmv" path="res://assets/sprite sheet/boss/Meowgoro-ranged_attack.png" id="16_vax3d"]
 [ext_resource type="Script" path="res://scripts/hitbox.gd" id="17_k7pry"]
 [ext_resource type="AudioStream" uid="uid://d21cktnpuspfj" path="res://assets/sounds/boss/cat death.wav" id="19_84w8t"]
@@ -63,6 +65,50 @@ region = Rect2(400, 200, 200, 200)
 [sub_resource type="AtlasTexture" id="AtlasTexture_w2q7d"]
 atlas = ExtResource("8_p2fl8")
 region = Rect2(600, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5xjt"]
+atlas = ExtResource("12_ow0cg")
+region = Rect2(0, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g324t"]
+atlas = ExtResource("12_ow0cg")
+region = Rect2(200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qll1e"]
+atlas = ExtResource("12_ow0cg")
+region = Rect2(400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8f16m"]
+atlas = ExtResource("12_ow0cg")
+region = Rect2(600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5td4g"]
+atlas = ExtResource("12_ow0cg")
+region = Rect2(800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t71ex"]
+atlas = ExtResource("12_ow0cg")
+region = Rect2(0, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfkro"]
+atlas = ExtResource("12_ow0cg")
+region = Rect2(200, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngksv"]
+atlas = ExtResource("12_ow0cg")
+region = Rect2(400, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tf4i0"]
+atlas = ExtResource("12_ow0cg")
+region = Rect2(600, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvcup"]
+atlas = ExtResource("12_ow0cg")
+region = Rect2(800, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wf8im"]
+atlas = ExtResource("12_ow0cg")
+region = Rect2(0, 400, 200, 200)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7b4kn"]
 atlas = ExtResource("10_mbtnp")
@@ -444,6 +490,44 @@ animations = [{
 }],
 "loop": true,
 "name": &"ArmorBuff",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5xjt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g324t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qll1e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8f16m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5td4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t71ex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfkro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngksv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tf4i0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvcup")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wf8im")
+}],
+"loop": true,
+"name": &"Jump_attack",
 "speed": 8.0
 }, {
 "frames": [{
@@ -1142,6 +1226,71 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 }
 
+[sub_resource type="Animation" id="Animation_vmrgj"]
+resource_name = "jump_attack"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Jump_attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox2/CollisionShape2D:shape")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_p7jk1")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hitbox2/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.7, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(19, -56), Vector2(36, 42), Vector2(41, 17)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hitbox2/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.7, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
 [sub_resource type="Animation" id="Animation_irvty"]
 resource_name = "melee_attack"
 length = 2.0
@@ -1369,6 +1518,7 @@ _data = {
 "death": SubResource("Animation_um6fg"),
 "hurt": SubResource("Animation_y5sx3"),
 "idle": SubResource("Animation_ql2yu"),
+"jump_attack": SubResource("Animation_vmrgj"),
 "melee_attack": SubResource("Animation_irvty"),
 "move": SubResource("Animation_fj1r3"),
 "ranged_attack": SubResource("Animation_rrooo")
@@ -1401,6 +1551,9 @@ script = ExtResource("4_src2a")
 
 [node name="MeleeAttack" type="Node2D" parent="FiniteStateMachine"]
 script = ExtResource("5_ud18c")
+
+[node name="JumpAttack" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("6_4tnwp")
 
 [node name="RangedAttack" type="Node2D" parent="FiniteStateMachine"]
 script = ExtResource("6_rt5qu")
@@ -1454,7 +1607,7 @@ offset_top = -32.0
 offset_right = 99.0
 offset_bottom = 2.0
 theme_override_font_sizes/font_size = 24
-text = "Cat Boss"
+text = "Wretched Feline"
 
 [node name="Label" type="Label" parent="UI"]
 self_modulate = Color(1, 1, 1, 0)
@@ -1526,7 +1679,6 @@ stream = ExtResource("21_23sps")
 
 [node name="AudioStreamPlayer2DSpin" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("22_nu86k")
-volume_db = -10.0
 pitch_scale = 1.5
 
 [node name="AudioStreamPlayer2DAppear" type="AudioStreamPlayer2D" parent="."]
